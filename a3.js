@@ -13,6 +13,8 @@ d3.csv("stocks.csv", function(error, stocks) {
   drawVis(dataset);
 });
 
+//
+
 function drawVis(data) {
 
 var col = d3.scale.category10();
