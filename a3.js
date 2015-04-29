@@ -4,15 +4,18 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
 var dataset;
 
-d3.csv("stocks.csv", function(error, stocks) {
+d3.csv("deathrates.csv", function(error, rates) {
   if (error) return console.warn(error);
-    stocks.forEach(function(d) {
-      d.price =+d.price;
+    rates.forEach(function(d) {
+      d.country += country;
+      d.code += code;
+
     });
-  dataset = stocks;
+  dataset = rates;
   drawVis(dataset);
 });
 
+//
 //
 
 function drawVis(data) {
