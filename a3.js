@@ -11,7 +11,7 @@ d3.csv("deathrates.csv", function(error, rates) {
       //d.code += d.code;
       //d.region += d.region;
       //for (i = 1960; i <= 2013; i++) {
-       // d.i += i;
+       // d.i += i;/
     
   });
 
