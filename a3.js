@@ -18,6 +18,8 @@ d3.csv("deathrates.csv", function(error, rates) {
   dataset = rates;
   drawVis(dataset);
   //console.log(dataset);
+  //
+  //
 });
 
 function drawVis(data) {
