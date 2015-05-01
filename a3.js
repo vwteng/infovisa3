@@ -8,6 +8,7 @@ d3.csv("deathrates1.csv", function(error, data) {
     data.forEach(function(d) {
         d.year = parseDate(d.year);
         d.death = +d.death;
+        drawVis(data);
     });
 
 var color = d3.scale.category10(); 
@@ -22,41 +23,43 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-var x = d3.time.scale()
+var x = d3.scale.linear()
+    .domain([0, 2013])
     .range([0, width]);
 
 var y = d3.scale.linear()
+    .domain([0, 60])
     .range([height, 0]);
 
-// function drawVis(data) {
-//   var circles = svg.selectAll("circle")
-//    .data(data)
-//    .enter()
-//    .append("circle")
-//     .attr("cx", function(d) { return x(d.price);  })
-//     .attr("cy", function(d) { return y(d.tValue);  })
-//     .attr("r", 4)
-//     .style("stroke", "black")
-//      //.style("fill", function(d) { return colLightness(d.vol); })
-//      .style("fill", function(d) { return col(d.type); })
-//     .style("opacity", 0.5)
-// }
+function drawVis(data) {
+  var circles = d3.selectAll("circle")
+   .data(data)
+   .enter()
+   .append("circle")
+    .attr("cx", function(d) { return x(d.year);  })
+    .attr("cy", function(d) { return y(d.death);  })
+    .attr("r", 4)
+    .style("stroke", "black")
+     //.style("fill", function(d) { return colLightness(d.vol); })
+     .style("fill", function(d) { return col(d.type); })
+    .style("opacity", 0.5)
+}
 
-var trendline = d3.svg.line()   
-    .x(function(d) { 
-        return x(d.year); 
-    })
-    .y(function(d) { 
-        return y(d.death); 
-    });
+// var trendline = d3.svg.line()   
+//     .x(function(d) { 
+//         return x(d.year); 
+//     })
+//     .y(function(d) { 
+//         return y(d.death); 
+//     });
     
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { 
-        return d.year; 
-    }));
-    y.domain([0, d3.max(data, function(d) { 
-        return d.death; 
-    })]);
+    // x.domain(d3.extent(data, function(d) { 
+    //     return d.year; 
+    // }));
+    // y.domain([0, d3.max(data, function(d) { 
+    //     return d.death; 
+    // })]);
 
     // Nest the entries by country
     var dataNest = d3.nest()
@@ -66,14 +69,14 @@ var trendline = d3.svg.line()
         .entries(data);
 
     // Loop through each country
-    dataNest.forEach(function(d,i) { 
+    // dataNest.forEach(function(d,i) { 
 
-        svg.append("path")
-            .attr("class", "line")
-            .style("stroke", function() { // Add the colours dynamically
-                return d.color = color(d.key); })
-            .attr("d", trendline(d.values));
-    });
+    //     svg.append("path")
+    //         .attr("class", "line")
+    //         .style("stroke", function() { // Add the colours dynamically
+    //             return d.color = color(d.key); })
+    //         .attr("d", trendline(d.values));
+    // });
 
     var xAxis = d3.svg.axis()
     .scale(x)
