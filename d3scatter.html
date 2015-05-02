@@ -24,9 +24,25 @@ body {
   float:right;
 }
 
+ .tooltip {     
+  position: absolute;   
+  width: 100px;   
+  border-radius: 5px;
+  padding: 5px;  
+  pointer-events: none;   
+}  
+
+footer {
+  position: absolute;
+  bottom: 3px;
+  opacity: .4;
+}
+
 
 </style>
 <body>
+  <h1>Crude Death Rate for Countries from 1960 - 2013</h1>
+
   <div class="selections">
     <label for="type">Country Region:</label>
     <select id="myselectform">  
@@ -41,11 +57,12 @@ body {
     </select>
 
 
-    <p>Income Level</p>
+<!--     <p>Income Level</p>
       <div id="income" class="slider-range"></div>
       <label for="incomeamount"> Income range:</label>
-      <input type="text" id="incomeamount" readonly>
+      <input type="text" id="incomeamount" readonly> -->
   </div>
+
 
 
 <!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> 
@@ -78,5 +95,6 @@ body {
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="d3scatter_full.js"></script>
+<footer>Source: The World Bank (http://data.worldbank.org/indicator/SP.DYN.CDRT.IN)</footer>
 </body>
 </html>

@@ -6,7 +6,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
 var dataset; //to hold full dataset
 
-d3.csv("deathrates1_slide.csv", function(error, rates) {
+d3.csv("deathrates1.csv", function(error, rates) {
   //read in the data
   if (error) return console.warn(error);
      rates.forEach(function(d) {
@@ -98,10 +98,11 @@ function drawVis(data) {
       tooltip.transition()
         .duration(200)
         .style("opacity", 1);
-      tooltip.html(d.country)
-        .style("left", (d3.event.pageX + 5) + "px")
-        .style("top", (d3.event.pageY - 28) + "px")
-        .style("opacity", 1)
+      tooltip.html(d.country + "<br>" + d.death + "<br>" + d.region + "<br>" + d.income + "<br>" + d.year)
+        // .style("left", (d3.event.pageX - 65) + "px")
+        // .style("top", (d3.event.pageY - 80) + "px")
+        .style("text-align", "center")
+        .style("background-color", "gray")
     })
     .on("mouseout", function(d) {
       tooltip.transition()
