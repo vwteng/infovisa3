@@ -130,6 +130,13 @@ function drawVis(data) {
         .style("opacity", 0);
     });
 }
+// var line = d3.svg.line()
+//          .x(function(d,i) { 
+//            return x(i); 
+//          })
+//          .y(function(d) { 
+//            return y(d); 
+//          })
 
 
 
@@ -161,6 +168,8 @@ svg.append("g")
       // .style("text-anchor", "end")
       // .text("True Value");
 
+//var path = svg.append("svg:path").attr("class","path").attr("clip-path", "url(#clip)").attr("d", line(dataset));
+      
 
 d3.select('select')
     .on("change", function() {

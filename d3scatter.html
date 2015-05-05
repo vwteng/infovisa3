@@ -63,7 +63,30 @@ footer {
       <input type="text" id="incomeamount" readonly> 
   </div>
 
+<!-- axis slider
+ --><!-- <div id="slider">
+  <script>
+    $(function() {
+    $( "#slider" ).slider({
+    range: true,
+    min: 0,
+    max: data.length-1,
+    values: [0,data.length-1],
+    slide: function( event, ui ) {
+    var maxv = d3.min([ui.values[1], data.length]);
+    var minv = d3.max([ui.values[0], 0]);;
 
+
+
+    x.domain([minv, maxv-1]);
+    graph.transition().duration(750)
+      .select(".x.axis").call(xAxis);
+    graph.transition().duration(750)
+      .select(".path").attr("d", line(data));
+    }});
+    });
+  </script>
+</div> -->
 
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script> 
 <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script> 
@@ -71,9 +94,8 @@ footer {
  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-<script>
+
 	
-</script>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="d3scatter_full.js"></script>
