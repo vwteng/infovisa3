@@ -6,7 +6,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50};
 
 var dataset; //to hold full dataset
 
-d3.csv("deathrates1.csv", function(error, rates) {
+d3.csv("deathrates1_income.csv", function(error, rates) {
   //read in the data
   if (error) return console.warn(error);
      rates.forEach(function(d) {
@@ -55,23 +55,42 @@ function filterType(mtype) {
   drawVis(toVisualize); 
 }
 
-// var attributes = ["year", "income"];
-// var ranges = [[0, 2014], [0, 3]];
+var attributes = ["year", "income"];
+var ranges = [[0, 2014], [0, 3]];
 
-// function filterData(attr, values) {
-//   for (i = 0; i < attributes.length; i++) {
-//     if (attr == attributes[i]) {
-//       ranges[i] = values;
-//     }
-//   }
-//   var toVisualize = dataset.filter(function(d) {
-//     for (i = 0; i < attributes.length; i++) {
-//       return d[attributes[i]] >= ranges.[i][0] && d[attributes[i]] <= ranges[i][1];
-//     }
-//   });
-//   drawVis(toVisualize);
-// }
+function filterData(attr, values) {
+  for (i = 0; i < attributes.length; i++) {
+    if (attr == attributes[i]) { 
+      ranges[i] = values;
+    }
+  }
+  var toVisualize = dataset.filter(function(d) {
+    for (i = 0; i < attributes.length; i++) {
+      return d[attributes[i]] >= ranges[i][0] && d[attributes[i]] <= ranges[i][1];
+    }
+  });
+  drawVis(toVisualize);
+}
 
+document.getElementById("myselectform").onchange = function(){ 
+    $("#mytype").val(this.value);
+    filterType(this.value);                  
+  }
+
+  $(function() {
+    $("#income").slider({
+      range: true,
+      min: 0,
+      max: 4,
+      values: [0, 4],
+      slide: function(event, ui) {
+        $("#incomeamount").val(ui.values[0] + "-" + ui.values[1]);
+        filterData("income", ui.values);
+      }
+    });
+    // $("#incomeamount").val($("#vol").slider("values", 0) + "-" + $("#vol").slider("values", 1));
+    //     filterData("income", ui.values);
+  });
 
 
 function drawVis(data) {
@@ -82,7 +101,7 @@ function drawVis(data) {
     .attr("cx", function(d) { return x(d.year);  })
     .attr("cy", function(d) { return y(d.death);  })
     .attr("r", 2)
-     .style("fill", function(d) { return col(d.country); })
+    .style("fill", function(d) { return col(d.country); })
     .style("opacity", 0.5)
 
     // circles.exit().remove();
@@ -103,6 +122,7 @@ function drawVis(data) {
         // .style("top", (d3.event.pageY - 80) + "px")
         .style("text-align", "center")
         .style("background-color", "gray")
+        .style("z-index", "100")
     })
     .on("mouseout", function(d) {
       tooltip.transition()

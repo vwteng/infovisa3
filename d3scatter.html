@@ -14,7 +14,7 @@ body {
 }
 .axis path {
   fill: none;
-  stroke: #000;
+  stroke: #878787;
   shape-rendering: crispEdges;
 }
 
@@ -57,40 +57,22 @@ footer {
     </select>
 
 
-<!--     <p>Income Level</p>
+    <p>Income Level</p>
       <div id="income" class="slider-range"></div>
       <label for="incomeamount"> Income range:</label>
-      <input type="text" id="incomeamount" readonly> -->
+      <input type="text" id="incomeamount" readonly> 
   </div>
 
 
 
-<!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> 
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script> 
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script> 
 
  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script>
-	document.getElementById("myselectform").onchange = function(){ 
-		$("#mytype").val(this.value);
-		filterType(this.value);                  
-	}
-
-  $(function() {
-    $("#income").slider({
-      range: true,
-      min: 0,
-      max: 4,
-      values: [0, 4],
-      slide: function(event, ui) {
-        $("#incomeamount").val(ui.values[0] + "-" + ui.values[1]);
-        filterData("income", ui.values);
-      }
-    });
-    $("#incomeamount").val($("#vol").slider("values", 0) + "-" + $("#vol").slider("values", 1));
-        filterData("income", ui.values);
-  });
+	
 </script>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
