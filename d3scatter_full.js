@@ -99,6 +99,10 @@ $(function() {
     });
 });
 
+var line = d3.svg.line()
+    .x(function(d) { return x(d.x); })
+    .y(function(d) { return y(d.y); });
+
 function drawVis(data) {
         // d3.selectAll("circle").remove();
         var circles = svg.selectAll("circle").data(data).enter().append(
@@ -124,6 +128,10 @@ function drawVis(data) {
                     .style("top", "100px")
                     .style("text-align", "center").style("background-color",
                         "white").style("z-index", "1")
+                    svg.append("path")
+                      .data(dataset)
+                      .attr("class", "line")
+                      .attr("d", line)
             }).on("mouseout", function(d) {
                 tooltip.transition().duration(500).style("opacity", 0);
             });
@@ -143,7 +151,7 @@ svg.append("g").attr("class", "axis").attr("transform", "translate(0," + h +
          .attr("y", 35)
          .style("text-anchor", "middle")
          .text("Year");
-         
+
 var yAxis = d3.svg.axis().scale(y).orient("left");
 svg.append("g").attr("class", "axis").call(yAxis)
     .append("text")
