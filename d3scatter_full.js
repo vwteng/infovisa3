@@ -5,6 +5,8 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50};
 // var parseDate = d3.time.format("%Y").parse;
 
 var dataset; //to hold full dataset
+var hi;
+var lo;
 
 d3.csv("deathrates1_income.csv", function(error, rates) {
   //read in the data
@@ -45,30 +47,45 @@ var patt = new RegExp("all");
 function filterType(mtype) {      
   mytype = mtype;       
   var res = patt.test(mytype);       
-  if(res){  
-    var toVisualize = dataset;  //use all the data       
-  }else{            
-    var toVisualize= dataset.filter(function(d, i) { //filter to only the selected type         
-    return d["type"] == mytype;  
+  if(res){ 
+    var toVisualize = dataset; 
+    filterData(lo, hi);    
+  }else{
+    var toVisualize= dataset.filter(function(d) { //filter to only the selected type       
+    return d["region"] == mytype;  
+    filterData(lo, hi); 
    });         
   }     
   drawVis(toVisualize); 
 }
 
-var attributes = ["year", "income"];
-var ranges = [[0, 2014], [0, 3]];
+// var attributes = ["year", "income"];
+// var ranges = [[0, 2014], [0, 3]];
 
-function filterData(attr, values) {
-  for (i = 0; i < attributes.length; i++) {
-    if (attr == attributes[i]) { 
-      ranges[i] = values;
-    }
-  }
+// function filterData(attr, values) {
+//   for (i = 0; i < attributes.length; i++) {
+//     if (attr == attributes[i]) { 
+//       ranges[i] = values;
+//     }
+//   }
+//   var toVisualize = dataset.filter(function(d) {
+//     for (i = 0; i < attributes.length; i++) {
+//       return d[attributes[i]] >= ranges[i][0] && d[attributes[i]] <= ranges[i][1];
+//     }
+//   });
+//   drawVis(toVisualize);
+// }
+
+function filterData(low, high){
   var toVisualize = dataset.filter(function(d) {
-    for (i = 0; i < attributes.length; i++) {
-      return d[attributes[i]] >= ranges[i][0] && d[attributes[i]] <= ranges[i][1];
+    if ($("#myselectform").val() != "all") {
+      return d.income >= low && d.income <= high && d.region == $("#myselectform").val();
+    } else {
+    return d.income >= low && d.income <= high;
     }
   });
+    d3.selectAll("circle").remove();
+
   drawVis(toVisualize);
 }
 
@@ -81,19 +98,48 @@ document.getElementById("myselectform").onchange = function(){
     $("#income").slider({
       range: true,
       min: 0,
-      max: 4,
-      values: [0, 4],
+      max: 3,
+      values: [0, 3],
       slide: function(event, ui) {
-        $("#incomeamount").val(ui.values[0] + "-" + ui.values[1]);
-        filterData("income", ui.values);
+
+        var range1;
+        var range2;
+        hi = ui.values[1];
+        lo = ui.values[0];
+
+        if (ui.values[0] == 0) {
+          range1 = "low";
+        } else if (ui.values[0] == 1) {
+          range1 = "lower middle";
+        } else if (ui.values[0] == 2) {
+          range1 = "upper middle";
+        } else if (ui.values[0] == 3) {
+          range1 = "high";
+        }
+
+        if (ui.values[1] == 0) {
+          range2 = "low";
+        } else if (ui.values[1] == 1) {
+          range2 = "lower middle";
+        } else if (ui.values[1] == 2) {
+          range2 = "upper middle";
+        } else if (ui.values[1] == 3) {
+          range2 = "high";
+        }
+
+        $("#incomeamount").val(range1 + " - " + range2);
+        filterData(ui.values[0], ui.values[1]);
       }
+
     });
     // $("#incomeamount").val($("#vol").slider("values", 0) + "-" + $("#vol").slider("values", 1));
-    //     filterData("income", ui.values);
+    //     filterData(ui.values[0], ui.values[1]);
+
   });
 
 
 function drawVis(data) {
+  // d3.selectAll("circle").remove();
   var circles = svg.selectAll("circle")
    .data(data)
    .enter()
