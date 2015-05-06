@@ -22,6 +22,7 @@ d3.csv("aaa.csv", function(error, rates) {
     $("#incomeamount").val("low" + " - " + "high");
 });
 var col = d3.scale.category20b();
+
 var svg = d3.select("body").append("svg").attr("width", w + margin.left +
         margin.right).attr("height", h + margin.top + margin.bottom).append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -105,9 +106,9 @@ function drawVis(data) {
                 return x(d.year);
             }).attr("cy", function(d) {
                 return y(d.death);
-            }).attr("r", 2).style("fill", function(d) {
+            }).attr("r", 3).style("fill", function(d) {
                 return col(d.country);
-            }).style("opacity", 0.5)
+            }).style("opacity", 1)
             // circles.exit().remove();
             // circles.enter().append("circle")
             // .attr("cx", function(d) { return x(d.year);  })
@@ -117,12 +118,12 @@ function drawVis(data) {
             // .style("opacity", 0.5)
             .on("mouseover", function(d) {
                 tooltip.transition().duration(200).style("opacity", 1);
-                tooltip.html(d.country + "<br>" + d.death + "<br>" + d.region +
-                        "<br>" + d.income + "<br>" + d.year)
-                    // .style("left", (d3.event.pageX - 65) + "px")
-                    // .style("top", (d3.event.pageY - 80) + "px")
+                tooltip.html("<b>" +d.country.toUpperCase()  + "<br>" + "CDR: </b>" + d.death + "<br>" + "<b>Region: </b>" + d.region +
+                        "<br>" + "<b> Year: </b>" +d.year)
+                    .style("left", "775px")
+                    .style("top", "100px")
                     .style("text-align", "center").style("background-color",
-                        "gray").style("z-index", "100")
+                        "white").style("z-index", "1")
             }).on("mouseout", function(d) {
                 tooltip.transition().duration(500).style("opacity", 0);
             });
@@ -137,24 +138,24 @@ function drawVis(data) {
 var xAxis = d3.svg.axis().scale(x).tickFormat(d3.format("d"));
 svg.append("g").attr("class", "axis").attr("transform", "translate(0," + h +
         ")").call(xAxis)
-    // .append("text")
-    //  .attr("x", w)
-    //  .attr("y", -6)
-    //  .style("text-anchor", "end")
-    //  .text("Price");
+        .append("text")
+         .attr("x", w/2)
+         .attr("y", 35)
+         .style("text-anchor", "middle")
+         .text("Year");
 var yAxis = d3.svg.axis().scale(y).orient("left");
 svg.append("g").attr("class", "axis").call(yAxis)
-    // .append("text")
-    // .attr("transform", "rotate(-90)")
-    // .attr("y", 6)
-    // .attr("dy", ".71em")
-    // .style("text-anchor", "end")
-    // .text("True Value");
+    .append("text")
+     .attr("transform", "rotate(-90)")
+     .attr("y", 6)
+     .attr("dy", ".71em")
+     .style("text-anchor", "end")
+     .text("Crude Death Rate (Per 1,000 People)");
     //var path = svg.append("svg:path").attr("class","path").attr("clip-path", "url(#clip)").attr("d", line(dataset));
 d3.select('select').on("change", function() {
     var key = mytype;
     d3.selectAll('circle').transition().duration(300).ease("quad").attr(
-            'r', 2).attr('cx', function(d) {
+            'r', 3).attr('cx', function(d) {
             return x(d.year);
         }).attr('cy', function(d) {
             return y(d.death);
@@ -171,11 +172,11 @@ d3.select('select').on("change", function() {
             };
         }).style('opacity', function(d) {
             if (key == "all") {
-                return .5
+                return 1
             } else if (d.region == key) {
                 return 1
             } else {
-                return .2
+                return 0
             };
         })
 });
