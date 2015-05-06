@@ -35,6 +35,7 @@ h1 {
   padding: 10px;
   margin-top: 200px;
   float:right;
+   position: relative;
 }
 
  .tooltip {     
@@ -72,14 +73,9 @@ footer {
 svg {
   padding-bottom: 50px;
 }
-
-.tick text{
-    font-size: 12px;
-  }
-
-  .tick line{
-    opacity: 0.2;
-  }
+ label,p {
+  font-size: 13px;
+ }
 select{
   background-color: #FFF;
    width: 170px;
@@ -95,7 +91,7 @@ select{
 
 input{
   background-color: #FFF;
-   width: 170px;
+   width: 120px;
    padding: 0px 5px 0px 5px;
    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
    font-size:13px;
@@ -106,6 +102,20 @@ input{
    height: 25px;
   }
 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+  border-radius: 16px;
+}
+
+.ui-slider-horizontal {
+  height: .5em;
+  margin-left: .5em;
+  margin-right: .25em;
+}
+
+.ui-slider .ui-slider-handle {
+  width: 1em;
+  height: 1em;
+}
 
 </style>
 <body>
