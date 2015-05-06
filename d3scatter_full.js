@@ -120,7 +120,7 @@ function drawVis(data) {
                 tooltip.transition().duration(200).style("opacity", 1);
                 tooltip.html("<b>" +d.country.toUpperCase()  + "<br>" + "CDR: </b>" + d.death + "<br>" + "<b>Region: </b>" + d.region +
                         "<br>" + "<b> Year: </b>" +d.year)
-                    .style("left", "775px")
+                    .style("left", "725px")
                     .style("top", "100px")
                     .style("text-align", "center").style("background-color",
                         "white").style("z-index", "1")
@@ -143,6 +143,7 @@ svg.append("g").attr("class", "axis").attr("transform", "translate(0," + h +
          .attr("y", 35)
          .style("text-anchor", "middle")
          .text("Year");
+         
 var yAxis = d3.svg.axis().scale(y).orient("left");
 svg.append("g").attr("class", "axis").call(yAxis)
     .append("text")

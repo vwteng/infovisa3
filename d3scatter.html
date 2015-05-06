@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<html lang="ja">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <style>
 
 body {
-  font: 11px sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  background-color: #F5F2F5;
+  margin-right: 2em;
+}
+
+h1 {
+  font-weight: normal;
 }
 
 .axis line,
@@ -26,7 +33,7 @@ body {
 
  .tooltip {     
   position: absolute;
-        width: 150px;
+        width: 200px;
         height: auto;
         padding: 10px;
         background-color: white;
@@ -59,6 +66,14 @@ footer {
 svg {
   padding-bottom: 50px;
 }
+
+.tick text{
+    font-size: 12px;
+  }
+
+  .tick line{
+    opacity: 0.2;
+  }
 
 
 </style>
@@ -99,6 +114,7 @@ svg {
 	
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
+
 <script src="d3scatter_full.js"></script>
 <footer>Source: The World Bank (http://data.worldbank.org/indicator/SP.DYN.CDRT.IN)</footer>
 </body>
